@@ -45,7 +45,7 @@ export default function Clock() {
 
   return (
     <div className="flex flex-col items-center gap-8">
-      <div className="relative w-80 h-80 rounded-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl border border-purple-500/30 flex items-center justify-center">
+      <div className="relative w-80 h-80 rounded-full bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl border border-purple-500/30 flex items-center justify-center">
         <div className="absolute inset-0 rounded-full bg-radial opacity-40" />
 
         {Array.from({ length: 12 }).map((_, i) => (
@@ -112,23 +112,15 @@ export default function Clock() {
           transition={{ type: "tween", ease: "linear", duration: 0.5 }}
         />
 
-        <motion.div
-          className="absolute bottom-8 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          <div className="text-2xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 tracking-widest">
-            {String(time.hours).padStart(2, "0")}:{String(time.minutes).padStart(2, "0")}:
-            {String(time.seconds).padStart(2, "0")}
-          </div>
-        </motion.div>
-
         <motion.svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 320 320"
           animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          transition={{
+            duration: 20,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
         >
           <circle
             cx="160"
@@ -150,18 +142,31 @@ export default function Clock() {
       </div>
 
       <motion.div
-        className="text-center"
+        className="text-center mt-24"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        <p className="text-foreground/80 text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-          {location}
+        <p className=" text-lg font-medium bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+          <motion.div
+            className="absolute bottom-8 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <div className="text-2xl font-mono font-bold text-white bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 tracking-widest">
+              {String(time.hours).padStart(2, "0")}:
+              {String(time.minutes).padStart(2, "0")}:
+              {String(time.seconds).padStart(2, "0")}
+            </div>
+          </motion.div>
         </p>
-        <p className="text-foreground/60 text-sm tracking-widest uppercase mt-2">{timezone}</p>
+        <p className="text-white text-sm tracking-widest uppercase mt-2">
+          {timezone}
+        </p>
       </motion.div>
     </div>
-  )
+  );
 }
 
 function getCurrentTime() {

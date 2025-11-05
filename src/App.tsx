@@ -13,7 +13,7 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <main className="w-full h-screen bg-background overflow-hidden flex items-center justify-center relative">
+    <main className="w-full h-screen bg-black overflow-hidden flex items-center justify-center relative">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
